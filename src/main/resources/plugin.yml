@@ -1,0 +1,8 @@
+name: Space Worlds
+main: com.chebab.spaceworlds.SpaceWorlds
+version: 0.0
+website: n/a
+author: blambi
+description: >
+             Generates empty worlds, great way to avoid 
+             adding more chunks to an existing world.
