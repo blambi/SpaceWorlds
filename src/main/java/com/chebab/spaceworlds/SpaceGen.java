@@ -19,13 +19,12 @@ public class SpaceGen extends ChunkGenerator {
      */
     public byte[] generate( World world, Random rand, int chunkx, int chunkz ) {
         byte[] blocks = new byte[65536];
-
         int x, z;
 
         // Since air is 0 it's allready filled with air,
         if( chunkx == 0 && chunkz == 0 ) {
             // Special since we need to take care of our spawn platform.
-
+            System.out.println("[SpaceGen] start chunk");
             blocks[coordsToInt(1, 63, 1)] = (byte)Material.GLOWSTONE.getId();
             for( x = 0; x < 3; x++ ) {
                 for( z = 0; z < 3; z++) {
@@ -48,6 +47,11 @@ public class SpaceGen extends ChunkGenerator {
     
     @Override
     public org.bukkit.Location getFixedSpawnLocation( World world, Random random ) {
+        if ( !world.isChunkLoaded(0, 0) )
+        {
+            world.loadChunk(0, 0);
+        }
+        
         return new org.bukkit.Location( world, 1, 64, 1 );
     }
 }

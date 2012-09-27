@@ -13,7 +13,7 @@ public class SpaceWorlds extends JavaPlugin
     }
 
     public void onDisable() {
-        System.out.println( "[Space Worlds] enabled." );
+        System.out.println( "[Space Worlds] disabled." );
     }
 
     
