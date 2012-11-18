@@ -23,6 +23,7 @@ public class SpaceGen extends ChunkGenerator {
     public List<BlockPopulator> getDefaultPopulators( World world ) {
         if( populators.size() == 0 ) {
             this.populators.add( new PlatformPopulator(world.getSeed()) );
+            this.populators.add( new WalkwaysPopulator(world.getSeed()) );
         }
 
         return populators;

@@ -11,32 +11,25 @@ import org.bukkit.generator.BlockPopulator;
 
 public class PlatformPopulator extends BlockPopulator {
     private long seed;
-    private boolean populating;
 
     PlatformPopulator(long seed) {
         this.seed = seed;
     }
 
     public void populate( World world, Random random, Chunk chunk ) {
-        if(populating)
-            return;
-
-        populating = true;
-
         // Do platforms
         if( chunk.getZ() % 2 == 0 ) {
             // Type A
-            platformGenA( world, random, chunk );
+            basicPlatform( world, random, chunk );
 
         }
         else {
             // Type B
+            basicPlatform( world, random, chunk );
         }
-
-        populating = false;
     }
 
-    private void platformGenA( World world, Random random, Chunk chunk ) {
+    private void basicPlatform( World world, Random random, Chunk chunk ) {
         byte colour = DyeColor.RED.getData(); // Make this random (based on seed)
         Block block = chunk.getBlock( 0, 64, 0 );
         int x, z;
@@ -66,10 +59,7 @@ public class PlatformPopulator extends BlockPopulator {
             }
 
             // top/bottom Borders
-            System.out.println("z " + z);
-
             if( z == 8 || z == 15 ) {
-                System.out.println("z! " + block.getType() );
                 block.setData( colour );
             }
         }
