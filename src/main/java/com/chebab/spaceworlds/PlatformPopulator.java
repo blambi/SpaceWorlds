@@ -21,15 +21,17 @@ public class PlatformPopulator extends BlockPopulator {
         if( chunk.getZ() % 2 == 0 ) {
             // Type A
             basicPlatform( world, random, chunk );
-
+            platformEntry( world, random, chunk, true );
         }
         else {
             // Type B
             basicPlatform( world, random, chunk );
+            platformEntry( world, random, chunk, false );
         }
     }
 
     private void basicPlatform( World world, Random random, Chunk chunk ) {
+        // TODO: Move me into the generator
         byte colour = DyeColor.RED.getData(); // Make this random (based on seed)
         Block block = chunk.getBlock( 0, 64, 0 );
         int x, z;
@@ -56,12 +58,38 @@ public class PlatformPopulator extends BlockPopulator {
                     block.setData( colour );
                 }
 
+                // top borders
+                if( z == 7 || z == 15 ) {
+                    block.setData( colour );
+                }
             }
+        }
+    }
 
-            // top/bottom Borders
-            if( z == 8 || z == 15 ) {
-                block.setData( colour );
-            }
+
+    private void platformEntry( World world, Random random, Chunk chunk, boolean is_a ) {
+        Block block;
+        int x, z;
+
+        if( is_a ) {
+            // Sign
+            block = chunk.getBlock( 4, 65, 7 );
+            block.setType( Material.SIGN_POST );
+
+            // Entry
+            block = chunk.getBlock( 5, 64, 7 );
+            block.setType( Material.WOOL );
+            block.setData( DyeColor.BLACK.getData() );
+        }
+        else {
+            // Sign
+            block = chunk.getBlock( 4, 65, 15 );
+            block.setType( Material.SIGN_POST );
+
+            // Entry
+            block = chunk.getBlock( 5, 64, 15 );
+            block.setType( Material.WOOL );
+            block.setData( DyeColor.BLACK.getData() );
         }
     }
 }

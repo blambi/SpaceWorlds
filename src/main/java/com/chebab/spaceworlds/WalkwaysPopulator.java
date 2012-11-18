@@ -50,13 +50,15 @@ public class WalkwaysPopulator extends BlockPopulator {
                 else
                     block.setData( colour );
 
-            }
-
-            // Lamps
-            if((x == 1 || x == 9) && (z == 2 || z == 4)) {
-                block.setType( Material.REDSTONE_TORCH_ON );
-                block = chunk.getBlock( x, 65, z );
-                block.setType( Material.REDSTONE_LAMP_ON );
+                // Lamps
+                if((x == 1 || x == 9) && (z == 2 || z == 4)) {
+                    block.setType( Material.REDSTONE_TORCH_ON );
+                    block = chunk.getBlock( x, 65, z );
+                    block.setType( Material.WOOL );
+                    block.setData( DyeColor.BLACK.getData() );
+                    block = chunk.getBlock( x, 66, z );
+                    block.setType( Material.REDSTONE_LAMP_ON );
+                }
             }
         }
 
