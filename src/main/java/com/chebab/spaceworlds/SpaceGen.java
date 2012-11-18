@@ -16,7 +16,18 @@ public class SpaceGen extends ChunkGenerator {
      * A quite simple constructor don't you say?
      */
     SpaceGen() {
+        this.seed = 0;
+        this.populators = new ArrayList<BlockPopulator>();
     }
+
+    public List<BlockPopulator> getDefaultPopulators( World world ) {
+        if( populators.size() == 0 ) {
+            this.populators.add( new PlatformPopulator(world.getSeed()) );
+        }
+
+        return populators;
+    }
+
 
     /**
      * Fill it all with space! (except spawn..)
