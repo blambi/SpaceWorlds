@@ -20,10 +20,10 @@ public class WalkwaysPopulator extends BlockPopulator {
         // Do only the horizontal one on even ones
         if( chunk.getZ() % 2 == 0 ) {
             walkwayHorizontal( world, random, chunk );
-            walkwayVertical( world, random, chunk );
+            walkwayVertical( world, random, chunk, true );
         }
         else {
-            walkwayVertical( world, random, chunk );
+            walkwayVertical( world, random, chunk, false );
         }
     }
 
@@ -49,7 +49,7 @@ public class WalkwaysPopulator extends BlockPopulator {
                     block.setData( DyeColor.BLACK.getData() );
                 else
                     block.setData( colour );
-                    
+
             }
 
             // Lamps
@@ -66,7 +66,7 @@ public class WalkwaysPopulator extends BlockPopulator {
                 colour = DyeColor.GRAY.getData();
             else
                 colour = DyeColor.BLACK.getData();
-            
+
             block = chunk.getBlock( x, 64, 0 );
             block.setType( Material.WOOL );
             block.setData( colour );
@@ -85,6 +85,30 @@ public class WalkwaysPopulator extends BlockPopulator {
         }
     }
 
-    private void walkwayVertical( World world, Random random, Chunk chunk ) {
+    private void walkwayVertical( World world, Random random, Chunk chunk, boolean do_crossing ) {
+        byte colour = DyeColor.GRAY.getData();
+        Block block = chunk.getBlock( 0, 64, 0 );
+        int x, z;
+
+        // Long pice first
+        for( x = 12; x < 15; x++ ) {
+            for( z = 0; z < 16; z++ ) {
+                block = chunk.getBlock( x, 64, z );
+
+                if( ! block.isEmpty() ) {
+                    // Already handled (ie: right border)
+                    continue;
+                }
+
+                // Default
+                block.setType(Material.WOOL);
+
+                if( (z == 4 && do_crossing) || x == 13 )
+                    block.setData( DyeColor.BLACK.getData() );
+                else
+                    block.setData( colour );
+
+            }
+        }
     }
 }
